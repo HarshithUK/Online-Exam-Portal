@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Result</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+	</head>
+	<body>
+		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1><center><font color='white'>Result for SAT</font></center></h1></div>
+		<div id = 'in'>
+			<h1>RESULTS : </h1>
+		    <h4>Please note the following details : </h4>
+		    <table class="table table-bordered table-hover"><tr><th>ID</th><td>{{ id }}</td></tr><tr><tr><th>Name</th><td>{{ name }}</td></tr><tr><th>Photo</th><td><img src = "static/resources/{{ photo }}" height = '100' width = '100'></img></td></tr><tr><th>Date of Birth</th><td>{{ dob }}</td></tr><tr><th>Gender</th><td>{{ gender }}</td></tr><tr><th>Result</th><td>{{ result }} / 10</td></tr></table>
+		</div>
+		<br>
+		<center><button id='link4' class="btn-default"><a href ="{{ url_for('home') }}"><h4>Click here to go to Home Page</h4></a></button></center>
+	</body>
+</html>

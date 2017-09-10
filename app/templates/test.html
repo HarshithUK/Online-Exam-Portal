@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SAT Test</title>
+		<script>
+			m = 10;
+			s = 0;
+			var result = [10];
+			var review = [10];
+			var count;
+			result.fill(null);
+			review.fill(false);
+			function start()
+			{
+				i=0;
+				while(i < result.length)
+				{
+					result[i] = "";
+					i+=1;
+				}
+				count = 0;
+				document.getElementById('info').innerHTML = "<b style='display:inline;'>ID : </b> {{ id }} <center><b style='display:inline;'>Name : </b> {{ name }}</center><img src = 'static/resources/{{ photo }}' height = '100' width = '100' style='float:right;'></img>";
+				onTimer();
+				req(count);
+			}
+			function onTimer()
+			{
+  				document.getElementById('mcount').innerHTML = m;
+  				document.getElementById('scount').innerHTML = s;
+  				if(m==0 && s==0)
+  					updateResult();
+  				else if(s==0)
+  				{
+  					m--;
+  					s = 59;
+  					setTimeout(onTimer, 1000);
+  				}
+  				else
+  				{
+  					s--;
+    				setTimeout(onTimer, 1000);
+  				}
+  			}
+			function goto()
+			{
+				updateResult();
+			}
+			function updateResult()
+			{
+				res = new XMLHttpRequest();
+				res.onreadystatechange=getAnswers;
+				res.open("GET","http://localhost:8090/Test/app/static/getA.php",true);
+				res.send();
+			}
+			function getAnswers()
+			{
+				if(res.readyState==4 && res.status==200)
+				{
+					var a = JSON.parse(res.responseText);
+					var marks = 0;
+					for(var i=0; i<a.length; ++i)
+					{
+						if(a[i][0]==result[i])
+							marks++;
+					}
+					document.getElementById('id').value = id;
+					document.getElementById('marks').value = marks;
+					var f = document.getElementById('frm');
+					f.submit();
+				}
+			}
+			function nextQ()
+			{
+				var qid = 'q'+count;
+				var d = document.getElementById(qid);
+				ans = null;
+				if(document.getElementById("o1").checked)
+					ans = document.getElementById("o1").value[0];
+				else if(document.getElementById("o2").checked)
+					ans = document.getElementById("o2").value[0];
+				else if(document.getElementById("o3").checked)
+					ans = document.getElementById("o3").value[0];
+				else if(document.getElementById("o4").checked)
+					ans = document.getElementById("o4").value[0];
+				//console.log(ans)
+				if(ans!=null)
+				{
+					if(review[count])
+					{
+						d.style.backgroundColor = 'orange'
+						d.style.border = '2px solid green';
+					}
+					else
+						d.style.backgroundColor = 'green';
+				}
+				else
+				{
+					if(review[count])
+						d.style.backgroundColor = 'orange';
+					else
+						d.style.backgroundColor = 'blue';
+				}
+				result[count] = ans;
+				count+=1;
+				//updateResult(ans, count);
+				req(count);
+			}
+			function mark(v)
+			{
+				if(review[count]==false)
+				{
+					review[count] = true;
+					v.value = 'Unmark';
+					qid = 'q'+count;
+					document.getElementById(qid).style.backgroundColor = 'orange';
+				}
+				else
+				{
+					review[count] = false;
+					v.value = 'Mark for Review';
+					qid = 'q'+count;
+					document.getElementById(qid).style.backgroundColor = 'blue';
+				}
+			}
+			function clearAns()
+			{
+				if(document.getElementById("o1").checked)
+					document.getElementById("o1").checked = false;
+				else if(document.getElementById("o2").checked)
+					document.getElementById("o2").checked = false;
+				else if(document.getElementById("o3").checked)
+					document.getElementById("o3").checked = false;
+				else if(document.getElementById("o4").checked)
+					document.getElementById("o4").checked = false;
+				result[count] = null;
+			}
+			function prevQ()
+			{
+				var qid = 'q'+count;
+				var d = document.getElementById(qid);
+				ans = null;
+				if(document.getElementById("o1").checked)
+					ans = document.getElementById("o1").value[0];
+				else if(document.getElementById("o2").checked)
+					ans = document.getElementById("o2").value[0];
+				else if(document.getElementById("o3").checked)
+					ans = document.getElementById("o3").value[0];
+				else if(document.getElementById("o4").checked)
+					ans = document.getElementById("o4").value[0];
+				//console.log(ans)
+				if(ans!=null)
+				{
+					if(review[count])
+					{
+						d.style.backgroundColor = 'orange'
+						d.style.border = '2px solid green';
+					}
+					else
+						d.style.backgroundColor = 'green';
+				}
+				else
+				{
+					if(review[count])
+						d.style.backgroundColor = 'orange';
+					else
+						d.style.backgroundColor = 'blue';
+				}
+				result[count] = ans;
+				count-=1;
+				//updateResult(ans, count);
+				req(count);
+			}
+			function req(count)
+			{
+				var qid = 'q'+count;
+				document.getElementById(qid).style.fontSize = '20px';
+				xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = upQ;
+				xhr.open("GET","http://localhost:8090/Test/app/static/getQ.php?count="+count,true);
+				xhr.send();
+			}
+			function fun(v)
+			{
+				var qid = 'q'+count;
+				var d = document.getElementById(qid);
+				ans = null;
+				if(document.getElementById("o1").checked)
+					ans = document.getElementById("o1").value[0];
+				else if(document.getElementById("o2").checked)
+					ans = document.getElementById("o2").value[0];
+				else if(document.getElementById("o3").checked)
+					ans = document.getElementById("o3").value[0];
+				else if(document.getElementById("o4").checked)
+					ans = document.getElementById("o4").value[0];
+				//console.log(ans);
+				result[count] = ans;
+				if(ans!=null)
+				{
+					if(review[count])
+					{
+						d.style.backgroundColor = 'orange'
+						d.style.border = '2px solid green';
+					}
+					else
+						d.style.backgroundColor = 'green';
+				}
+				else
+				{
+					if(review[count])
+						d.style.backgroundColor = 'orange';
+					else
+						d.style.backgroundColor = 'blue';
+				}
+				document.getElementById(qid).style.fontSize = '16px';
+				count = v.innerHTML-1;
+				req(v.innerHTML-1);
+			}
+			function upQ()
+			{
+				if(xhr.readyState == 4 && xhr.status == 200)
+				{
+					var q = document.getElementById("question");
+					q.innerHTML = xhr.responseText;
+					if(result[count] != "")
+					{
+						if(document.getElementById("o1").value == result[count])
+							document.getElementById("o1").checked = true;
+						else if(document.getElementById("o2").value == result[count])
+							document.getElementById("o2").checked = true;
+						else if(document.getElementById("o3").value == result[count])
+							document.getElementById("o3").checked = true;
+						else if(document.getElementById("o4").value == result[count])
+							document.getElementById("o4").checked = true;
+					}
+				}
+			}
+		</script>
+		<style>
+		.button {
+    		background-color: blue;
+    		border: none;
+    		color: white;
+    		padding: 15px 32px;
+    		text-align: center;
+    		text-decoration: none;
+    		display: inline-block;
+    		font-size: 16px;
+    		margin: 4px 2px;
+    		cursor: pointer;
+		}
+		</style>
+		<!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='normalize.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='skeleton.css') }}">-->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+	</head>
+	<body onload = 'start()'>
+		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1><center><font color='white'>SAT Online Exam</font></center></h1></div>
+		<div id = 'info'></div>
+		<h3>Time Remaining : </h3><span id = 'mcount'></span> : <span id = 'scount'></span>
+		<table><tr>
+			<td id = 'q0' onclick = 'fun(this)' class='button'>1</td>
+			<td id = 'q1' onclick = 'fun(this)' class='button'>2</td>
+			<td id = 'q2' onclick = 'fun(this)' class='button'>3</td>
+			<td id = 'q3' onclick = 'fun(this)' class='button'>4</td>
+			<td id = 'q4' onclick = 'fun(this)' class='button'>5</td>
+			<td id = 'q5' onclick = 'fun(this)' class='button'>6</td>
+			<td id = 'q6' onclick = 'fun(this)' class='button'>7</td>
+			<td id = 'q7' onclick = 'fun(this)' class='button'>8</td>
+			<td id = 'q8' onclick = 'fun(this)' class='button'>9</td>
+			<td id = 'q9' onclick = 'fun(this)' class='button'>10</td>
+		</tr></table>
+		<h3>Question : </h3>
+		<div id = 'question'></div><br><br>
+		<form id='frm' method='POST' action='/test_after'>
+			<input type='text' name='id' id='id' hidden></input>
+			<input type='text' name='marks' id='marks' hidden></input>
+		</form>
+		<button class="btn btn-primary" type="button" onclick='goto()'>End Test</button>
+	</body>
+</html>

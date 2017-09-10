@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Registration</title>
+		<script>
+			function displayPhoto()
+			{
+				var name = document.getElementById('photo').value;
+				document.getElementById('img').innerHTML = "<img src = {{url_for('static', filename = 'resources/')}}"+name.substr(12)+" height = '100' width = '100'></img>";
+			}
+		</script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+	</head>
+	<body>
+		<script src = "{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src = "{{ url_for('static', filename='js/jquery.js') }}"></script>
+		<script src = "{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1><center><font color='white'>Registrations for OTES</font></center></h1></div>
+		<hr width="30%">
+		<center>
+		<div class="form-group">
+		<form action='/success' method = 'POST'>
+			<label> Name : <br><input type = 'text' class="form-control" name = 'name' placeholder="Enter Name"></label><br><br>
+			<label> Date of Birth (in dd/mm/yyyy format): <br><input type = 'text' name = 'dob' class="form-control"></label><br><br>
+			<label> Gender : <br><label class="radio-inline">
+      			<input type="radio" name="optradio1">Male
+    		</label>
+    		&nbsp;&nbsp;&nbsp;
+    		<label class="radio-inline">
+      			<input type="radio" name="optradio2">Female
+    		</label><br><br>
+			<label> Photo : <br><input type="file" name="photo" value = "Select Photo" id="photo" onchange = 'displayPhoto()'></label><br><br>
+			<div id = 'img'></div>
+			<input class="btn btn-primary" type="submit"></input>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" class="btn btn-primary"></input><br><br>
+		</form>
+		</div>
+		<div id = 'in'>
+		</div>
+		<br>
+		<center><button id='link4' class="btn-default"><a href ="{{ url_for('home') }}"><h4>Click here to go to Home Page</h4></a></button></center>
+	</body>
+</html>

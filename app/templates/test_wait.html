@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OTES Test</title>
+		<script>
+		i = 10;
+		function fillInfo()
+		{
+			document.getElementById('info').innerHTML = "<b style='display:inline;'>ID : </b> {{ id }} <center><b style='display:inline;'>Name : </b> {{ name }}</center><img src = 'static/resources/{{ photo }}' height = '100' width = '100' style='float:right;'></img>";
+			onTimer();
+		}
+		function onTimer()
+		{
+  			document.getElementById('count').innerHTML = i;
+  			i--;
+  			if (i < 0)
+  			{
+    			window.location.href = "{{ url_for('test') }}";
+  			}
+  			else
+  			{
+    			setTimeout(onTimer, 1000);
+  			}
+  		}
+		</script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+		<style>
+			.button {
+    		background-color: blue;
+    		border: none;
+    		color: white;
+    		padding: 15px 32px;
+    		text-align: center;
+    		text-decoration: none;
+    		display: inline-block;
+    		font-size: 16px;
+    		margin: 4px 2px;
+    		cursor: pointer;
+		}
+		</style>
+	</head>
+	<body onload = 'fillInfo()'>
+		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1><center><font color='white'>SAT Online Exam</font></center></h1></div>
+		<div id='info'></div>
+		<h2><center>Your test will begin in <span id = 'count'></span> seconds.</center></h2>
+		<h2>Instructions</h2>
+		<ul>
+			<li>Make sure you have a good internet connection.</li>
+			<li>Never click the 'Back' button on the browser. This will take you out of the test and prevent the system from tracking your selected answers.</li>
+			<li>You will have 10 minutes to complete your exam.</li>
+			<li>Answer all questions in the exam.</li>
+			<li>Here is the list of question buttons that indicates different colors with different meanings:</li>
+			<ul>
+				<li><button class='button'></button> : Unattended Question</li>
+				<li><button class='button' style='background-color:green;'></button> : Attended Question</li>
+				<li><button class='button' style='font-size: 20px;'></button> : Current Question</li>
+				<li><button class='button' style='background-color:orange;'></button> : Unattended Marked for Review Question</li>
+				<li><button class='button' style='background-color:orange; border:2px solid green;'></button> : Attended Marked for Review Question</li>
+			</ul>	 
+			<li>Click the 'End Test' button to submit your exam and end the test within the given time.</li>
+		</ul>
+	</div></body>
+</html>

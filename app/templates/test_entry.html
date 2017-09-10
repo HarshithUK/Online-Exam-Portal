@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> SAT Test Entry</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+	</head>
+	<body>
+		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1><center><font color='white'>SAT Online Exam</font></center></h1></div>
+		<br><br>
+		<h4>Please enter the following details: (The password is your date of birth)</h4><br><br>
+		<div class="form-group">
+		<form method = 'POST' action='/test_wait'>
+			<center><label><input type = 'text' name = 'id' class="form-control" placeholder="Enter your ID" ></label></center><br>
+			<center><label><input type = 'password' name = 'password' class="form-control" placeholder="Enter your Password"></label></center><br>
+			<center><label><input class="btn btn-primary" type="submit" onclick='func()'></input></label></center>
+		</form>
+	</div>
+	<center><button id='link4' class="btn-default"><a href ="{{ url_for('home') }}"><h4>Click here to go to Home Page</h4></a></button></center>
+	</div>
+	<div id = 'error'>
+		<b><center><font color='red'>{{ error }}</font></center></b>
+	</div>
+	</body>
+</html>

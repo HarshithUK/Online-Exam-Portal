@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+	</head>
+	<body>
+		<script src = "{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src = "{{ url_for('static', filename='js/jquery.js') }}"></script>
+		<script src = "{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<div class = 'container'><div class = 'jubotron' style = "background-color:blue">
+		<h1 class='bg-primary'><center><font color='white'>Welcome to Online Test and Evaluation System</font></center></h1></div>
+		<br><br><br>
+		<div id='info'>
+			<p>
+				Welcome to Online Test and Evaluation System. The Website judges your aptitude and feeds them back.
+			</p>
+		</div>
+		<center><button id='link1' class="btn-default"><a href ="{{ url_for('register') }}"><h4>Click Here to Enroll For the OTES</h4></a></button></center>
+		<hr>
+		<center><button id='link2' class="btn-default"><a href ="{{ url_for('test_enter') }}"><h4>Click here to go to the test</h4></a></button></center>
+		<hr>
+		<center><button id='link2' class="btn-default"><a href ="{{ url_for('result') }}"><h4>Click here to see your Results</h4></a></button></center>
+	</div><hr></body>
+</html>

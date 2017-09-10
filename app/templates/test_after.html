@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SAT Test</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7-dist/css/bootstrap-theme.css') }}">
+		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+		<script src = "{{ url_for('static',filename='js/jquery.js') }}"></script>
+		<link rel="stylesheet" href="{{ url_for('static',filename='js/jquery-bar-rating-master/dist/themes/fontawesome-stars.css') }}">
+		<center><h1 class="bg-primary">Welcome to Online Test and Evaluation System</h1></center>
+		<script src="{{ url_for('static',filename='js/jquery-bar-rating-master/dist/jquery.barrating.min.js') }}"></script>
+		<script type='text/javascript'>
+			$(function() {
+      			$('#experience').barrating({
+        			theme: 'fontawesome-stars'
+      			});
+   			});
+   			$(function() {
+      			$('#quality').barrating({
+        			theme: 'fontawesome-stars'
+      			});
+   			});
+   			$(function() {
+      			$('#difficuilty').barrating({
+        			theme: 'fontawesome-stars'
+      			});
+   			});
+			function rateOverall(ele)
+			{
+				var id = 'o'
+				for(var i=1; i<ele; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = true;
+				}
+				for(var i=ele+1; i<=5; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = false;
+				}
+			}
+			function rateQuality(ele)
+			{
+				var id = 'q'
+				for(var i=1; i<ele; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = true;
+				}
+				for(var i=ele+1; i<=5; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = false;
+				}
+			}
+			function rateDifficulty(ele)
+			{
+				var id = 'd'
+				for(var i=1; i<ele; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = true;
+				}
+				for(var i=ele+1; i<=5; ++i)
+				{
+					document.getElementById(id+""+i+"").checked = false;
+				}
+			}
+			function sendFeedback()
+			{
+				document.getElementById('msg').innerHTML = 'Thanks for your feedback!';
+			}
+		</script>
+	</head>
+	<body>
+		<div class="header">
+			<img align="left" src="{{ url_for('static', filename='resources/otes_logo.png') }}">
+			<img align='right' src="{{ url_for('static', filename='resources/pes_logo.png') }}">
+			<br><br>
+			<br>
+			<hr/>
+		</div>
+		<h2>Thanks for attending the exam! Please rate your feedback below</font></h2>
+		<form onsubmit='sendFeedback()'>
+		<br><br>
+		<center>
+		<label>Experience :</label>
+		<select id='experience'>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+		<label>Quality of the Questions :</label>
+		<select id='quality'>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+		<label>Difficuilty of the Paper :</label>
+		<select id='difficuilty'>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select></center>
+		<br><br><center><button class="btn btn-primary" type="button" onclick='sendFeedback()'>Submit</button></form>
+		<div id='msg'></div></center><br>
+		<center><button id='link4' class="btn-default"><a href ="{{ url_for('home') }}"><h4>Click here to go to Home Page</h4></a></button></center>
+	</div></body>
+</html>
